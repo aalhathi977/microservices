@@ -1,9 +1,10 @@
 package com.amigoscode.customer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+@Slf4j
 @Service
-public record CustomerService(CustomerRepository customerRepository) {
+public record CustomerService(CustomerRepository customerRepository, CustomerConfig restTemplate) {
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -11,6 +12,16 @@ public record CustomerService(CustomerRepository customerRepository) {
                 .email(request.email())
                 .build();
 
-        customerRepository.save(customer);
+        customerRepository.saveAndFlush(customer);
+
+        FraudCheckResponse fraudCheckResponse = restTemplate.restTemplate().getForObject(
+                "http://localhost:8081/api/v1/fraud-check/{customerId}",
+                FraudCheckResponse.class,
+                customer.getId()
+        );
+        if (fraudCheckResponse.isFraudster()){
+            throw new IllegalStateException("fraudster");
+        }
+        log.info("customer request is processed");
     }
 }
