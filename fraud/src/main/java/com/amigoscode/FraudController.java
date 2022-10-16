@@ -1,6 +1,7 @@
 package com.amigoscode;
 
 
+import com.amigoscode.clients.fraud.FraudCheckResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
