@@ -1,5 +1,6 @@
 package com.amigoscode.customer;
 
+import com.amigoscode.amqp.RabbitMQMessageProducer;
 import com.amigoscode.clients.fraud.FraudCheckResponse;
 import com.amigoscode.clients.fraud.FraudClient;
 import com.amigoscode.clients.notification.NotificationClient;
@@ -8,7 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 @Slf4j
 @Service
-public record CustomerService(CustomerRepository customerRepository, CustomerConfig restTemplate, FraudClient fraudClient, NotificationClient notificationClient) {
+public record CustomerService(CustomerRepository customerRepository, CustomerConfig restTemplate, FraudClient fraudClient,
+                              RabbitMQMessageProducer producer) {
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -20,13 +22,16 @@ public record CustomerService(CustomerRepository customerRepository, CustomerCon
         if (fraudCheckResponse.isFraudster()){
             throw new IllegalStateException("fraudster");
         }
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to Amigoscode...",
-                                customer.getFirstName())
-                )
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to Amigoscode...",
+                        customer.getFirstName())
+        );
+        producer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing.keys"
         );
         log.info("customer request is processed");
     }
