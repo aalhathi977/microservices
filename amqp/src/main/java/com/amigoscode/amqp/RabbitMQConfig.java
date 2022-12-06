@@ -14,39 +14,29 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class RabbitMQConfig {
 
-
     private final ConnectionFactory connectionFactory;
 
-    /*
-    * This is the Rabbit MQ Template to be used by the publisher to send messages
-    */
     @Bean
-    public AmqpTemplate amqpTemplate(){
+    public AmqpTemplate amqpTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jacksonConverter());
         return rabbitTemplate;
     }
 
-    /*
-    * This is the listener to be used by the consumer to retrieve messages
-    */
     @Bean
-    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory(){
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+    public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory() {
+        SimpleRabbitListenerContainerFactory factory =
+                new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jacksonConverter());
         return factory;
     }
 
-
-    /*
-    * This Bean is injected to the AmqpTemplate and the SimpleRabbitListenerContainerFactory
-    * This is to convert the publisher message to json before publishing
-    * And the consumer can deserialize as it needs
-    */
     @Bean
-    public MessageConverter jacksonConverter(){
-        MessageConverter jackson2JsonConverter = new Jackson2JsonMessageConverter();
-        return jackson2JsonConverter;
+    public MessageConverter jacksonConverter() {
+        MessageConverter jackson2JsonMessageConverter =
+                new Jackson2JsonMessageConverter();
+        return jackson2JsonMessageConverter;
     }
+
 }

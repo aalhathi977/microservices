@@ -17,17 +17,18 @@ public class NotificationApplication {
         SpringApplication.run(NotificationApplication.class, args);
     }
 
-    /*
-
-    This commandLine was used only to test that RabbitMQ is working and messages and be published
-
-    @Bean
-    CommandLineRunner commandLineRunner(RabbitMQMessageProducer producer, NotificationConfig notificationConfig){
-        return args -> {
-            producer.publish("foo",
-                    notificationConfig.getInternalExchange(),
-                    notificationConfig.getInternalNotificationRoutingKey());
-        };
-    }
-     */
+//    @Bean
+//    CommandLineRunner commandLineRunner(
+//            RabbitMQMessageProducer producer,
+//            NotificationConfig notificationConfig
+//            ) {
+//        return args -> {
+//            producer.publish(
+//                    new Person("Ali", 18),
+//                    notificationConfig.getInternalExchange(),
+//                    notificationConfig.getInternalNotificationRoutingKey());
+//        };
+//    }
+//
+//    record Person(String name, int age){}
 }

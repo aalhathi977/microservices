@@ -20,19 +20,18 @@ public class NotificationConfig {
     @Value("${rabbitmq.routing-keys.internal-notification}")
     private String internalNotificationRoutingKey;
 
-
     @Bean
-    public TopicExchange internalTopicExchange(){
+    public TopicExchange internalTopicExchange() {
         return new TopicExchange(this.internalExchange);
     }
 
     @Bean
-    public Queue notificationQueue(){
+    public Queue notificationQueue() {
         return new Queue(this.notificationQueue);
     }
 
     @Bean
-    public Binding internalToNotificationBinding(){
+    public Binding internalToNotificationBinding() {
         return BindingBuilder
                 .bind(notificationQueue())
                 .to(internalTopicExchange())
