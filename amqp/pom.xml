@@ -11,17 +11,6 @@
     <packaging>jar</packaging>
     <artifactId>amqp</artifactId>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
