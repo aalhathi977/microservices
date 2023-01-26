@@ -17,10 +17,10 @@ is critically important when making informed decisions about production systems.
 
 The example uses, targets or assumes:
 
-* [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/) with the [VirtualBox](https://www.virtualbox.org/) driver (other drivers can be used, too)
-* Kubernetes 1.6
-* RabbitMQ [Docker image](https://hub.docker.com/_/rabbitmq/) (maintained [by Docker, Inc](https://hub.docker.com/_/rabbitmq/))
-* A [StatefulSets controller](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+ * [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/) with the [VirtualBox](https://www.virtualbox.org/) driver (other drivers can be used, too)
+ * Kubernetes 1.6
+ * RabbitMQ [Docker image](https://hub.docker.com/_/rabbitmq/) (maintained [by Docker, Inc](https://hub.docker.com/_/rabbitmq/))
+ * A [StatefulSets controller](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 
 
 ## Quick Start with Make
@@ -71,9 +71,9 @@ In case you would prefer to install and run Minikube manually, see the following
 
 ### Preresuites
 
-* Make sure that VirtualBox is installed
-* Install [`minikube`](https://kubernetes.io/docs/tasks/tools/install-minikube/) and start it with `--vm-driver=virtualbox`
-* Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+ * Make sure that VirtualBox is installed
+ * Install [`minikube`](https://kubernetes.io/docs/tasks/tools/install-minikube/) and start it with `--vm-driver=virtualbox`
+ * Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 ### Start Minikube
 
@@ -130,31 +130,46 @@ The output should look something like this:
 ```
 Cluster status of node rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local ...
 Basics
+
 Cluster name: rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local
+
 Disk Nodes
+
 rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local
 rabbit@rabbitmq-1.rabbitmq.test-rabbitmq.svc.cluster.local
 rabbit@rabbitmq-2.rabbitmq.test-rabbitmq.svc.cluster.local
+
 Running Nodes
+
 rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local
 rabbit@rabbitmq-1.rabbitmq.test-rabbitmq.svc.cluster.local
 rabbit@rabbitmq-2.rabbitmq.test-rabbitmq.svc.cluster.local
+
 Versions
+
 rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local: RabbitMQ 3.8.1 on Erlang 22.1.8
 rabbit@rabbitmq-1.rabbitmq.test-rabbitmq.svc.cluster.local: RabbitMQ 3.8.1 on Erlang 22.1.8
 rabbit@rabbitmq-2.rabbitmq.test-rabbitmq.svc.cluster.local: RabbitMQ 3.8.1 on Erlang 22.1.8
+
 Alarms
+
 (none)
+
 Network Partitions
+
 (none)
+
 Listeners
+
 Node: rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local, interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication
 Node: rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local, interface: [::], port: 5672, protocol: amqp, purpose: AMQP 0-9-1 and AMQP 1.0
 Node: rabbit@rabbitmq-0.rabbitmq.test-rabbitmq.svc.cluster.local, interface: [::], port: 15672, protocol: http, purpose: HTTP API
 Node: rabbit@rabbitmq-1.rabbitmq.test-rabbitmq.svc.cluster.local, interface: [::], port: 25672, protocol: clustering, purpose: inter-node and CLI tool communication
 Node: rabbit@rabbitmq-1.rabbitmq.test-rabbitmq.svc.cluster.local, interface: [::], port: 5672, protocol: amqp, purpose: AMQP 0-9-1 and AMQP 1.0
 Node: rabbit@rabbitmq-1.rabbitmq.test-rabbitmq.svc.cluster.local, interface: [::], port: 15672, protocol: http, purpose: HTTP API
+
 Feature flags
+
 Flag: drop_unroutable_metric, state: enabled
 Flag: empty_basic_get_metric, state: enabled
 Flag: implicit_default_bindings, state: enabled
@@ -173,8 +188,8 @@ minikube ip
 
 The [ports used](https://www.rabbitmq.com/networking.html#ports) by this example are:
 
-* `amqp://guest:guest@{minikube_ip}:30672`: [AMQP 0-9-1 and AMQP 1.0](https://www.rabbitmq.com/networking.html#ports) client connections
-* `http://{minikube_ip}:31672`: [HTTP API and management UI](https://www.rabbitmq.com/management.html)
+ * `amqp://guest:guest@{minikube_ip}:30672`: [AMQP 0-9-1 and AMQP 1.0](https://www.rabbitmq.com/networking.html#ports) client connections
+ * `http://{minikube_ip}:31672`: [HTTP API and management UI](https://www.rabbitmq.com/management.html)
 
 
 ### Scaling the Number of RabbitMQ Cluster Nodes (Kubernetes Pod Replicas)
