@@ -1,11 +1,11 @@
 server:
-    port: 8080
+    port: 8082
 spring:
     application:
-        name: customer
+        name: notification
     datasource:
         password: password
-        url: jdbc:postgresql://localhost:5432/customer
+        url: jdbc:postgresql://localhost:5432/notification
         username: amigoscode
     jpa:
         hibernate:
@@ -25,5 +25,12 @@ eureka:
             defaultZone: http://localhost:8761/eureka
         fetch-registry: true
         register-with-eureka: true
-        enabled: false
+
+rabbitmq:
+    exchanges:
+        internal: internal.exchange
+    queues:
+        notification: notification.queue
+    routing-keys:
+        internal-notification: internal.notification.routing-key
 
